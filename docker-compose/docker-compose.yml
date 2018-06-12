@@ -11,7 +11,7 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:rw
             - nbhub_hub_data:/root:rw
-            - ${PWD}/configs/hub:/srv/jupyterhub
+            - ${PWD}/configs/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py
         ports:
             - 8000:8000
         environment:
@@ -26,16 +26,17 @@ services:
         volumes:
             - nbhub_course:/course:rw
             - nbhub_exchange_outbound:/exchange/course/outbound:rw
-            - ${PWD}/configs/designer:/etc/jupyter
+            - ${PWD}/configs/nbgrader_config.py:/etc/jupyter/nbgrader_config.py
+            - ${PWD}/configs/jupyter_notebook_config.designer.py:/etc/jupyter/jupyter_notebook_config.py
         ports:
             - 8001:8888
         environment:
             NBHUB_COURSE: "course"
-    student:
-        build:
-            context: .
-            dockerfile: Dockerfile.student
-        image: nbhub/student
+#    student:
+#        build:
+#            context: .
+#            dockerfile: Dockerfile.student
+#        image: nbhub/student
 
 volumes:
     nbhub_hub_data:

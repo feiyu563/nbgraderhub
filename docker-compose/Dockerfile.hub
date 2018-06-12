@@ -1,4 +1,4 @@
-FROM jupyterhub/jupyterhub:0.9
+FROM jupyterhub/jupyterhub:0.8.1
 
 CMD ["jupyterhub", "-f", "/srv/jupyterhub/jupyterhub_config.py"]
 

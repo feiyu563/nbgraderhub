@@ -14,14 +14,15 @@ c.DockerSpawner.extra_host_config = {'network_mode': network}
 
 c.DockerSpawner.notebook_dir = '/home/jovyan'
 c.DockerSpawner.volumes = {
-        'nbgrader_exchange_inbound_{username}': '/exchange/course/inbound', 
-        'nbgrader_work_{username}': '/home/jovyan',
-        'nbgrader_exchange_outbound': dict(
+        'nbhub_exchange_inbound_{username}': '/exchange/course/inbound', 
+        'nbhub_work_{username}': '/home/jovyan',
+        'nbhub_exchange_outbound': dict(
             bind='/exchange/course/outbound',
             mode='ro'
             )
         }
 c.DockerSpawner.remove_containers = True
+c.DockerSpawner.debug = True
 
 c.JupyterHub.hub_ip = 'nbhub_hub'
 c.JupyterHub.hub_port = 8080

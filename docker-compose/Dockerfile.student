@@ -10,6 +10,11 @@ RUN mkdir -p /exchange/course/inbound
 RUN chown -R jovyan /exchange
 RUN chmod a+rwx /exchange
 
+#
+# Configuring nbgrader
+#
+COPY configs/nbgrader_config.py /etc/jupyter/nbgrader_config.py
+
 USER jovyan
 RUN conda install --yes -c conda-forge nbgrader
 WORKDIR /home/jovyan

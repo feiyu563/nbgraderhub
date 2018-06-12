@@ -1,0 +1,51 @@
+version: "2.1"
+
+services:
+    hub:
+        build:
+            context: .
+            dockerfile: Dockerfile.hub
+        restart: always
+        image: nbhub/hub
+        container_name: nbhub_hub
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:rw
+            - nbhub_hub_data:/root:rw
+            - ${PWD}/configs/hub:/srv/jupyterhub
+        ports:
+            - 8000:8000
+        environment:
+            NBHUB_COURSE: "course"
+    designer:
+        build:
+            context: .
+            dockerfile: Dockerfile.designer
+        restart: always
+        image: nbhub/designer
+        container_name: nbhub_designer
+        volumes:
+            - nbhub_course:/course:rw
+            - nbhub_exchange_outbound:/exchange/course/outbound:rw
+            - ${PWD}/configs/designer:/etc/jupyter
+        ports:
+            - 8001:8888
+        environment:
+            NBHUB_COURSE: "course"
+    student:
+        build:
+            context: .
+            dockerfile: Dockerfile.student
+        image: nbhub/student
+
+volumes:
+    nbhub_hub_data:
+        name: nbhub_hub_data
+    nbhub_course:
+        name: nbhub_course
+    nbhub_exchange_outbound:
+        name: nbhub_exchange_outbound
+
+networks:
+    default:
+        external:
+            name: nbhub_network

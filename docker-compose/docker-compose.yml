@@ -32,11 +32,11 @@ services:
             - 8001:8888
         environment:
             NBHUB_COURSE: "course"
-#    student:
-#        build:
-#            context: .
-#            dockerfile: Dockerfile.student
-#        image: nbhub/student
+    student:
+        build:
+            context: .
+            dockerfile: Dockerfile.student
+        image: nbhub/student
 
 volumes:
     nbhub_hub_data:
